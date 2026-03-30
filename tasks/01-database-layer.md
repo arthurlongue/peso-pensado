@@ -26,7 +26,7 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 ### 1C: Connection (Steps 1.10–1.12)
 - [x] 1.10 Create `lib/utils.ts` with UUID and timestamp helpers
 - [x] 1.11 Create `db/client.ts` — connection, Drizzle instance, migration runner
-- [ ] 1.12 Configure Metro to handle `.sql` migration files
+- [x] 1.12 Configure Metro to handle `.sql` migration files
 
 ### 1D: Seed Data (Steps 1.13–1.15)
 - [ ] 1.13 Move exercise JSON into `db/seed/`
@@ -99,3 +99,5 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 | `app/(tabs)/index.tsx` | MODIFY | Temporary verification query |
 
 ## Notes
+
+- **When generating new migrations**: After running `drizzle-kit generate`, you must manually add a new entry to `db/migrations/migrations.ts` mapping the new migration tag to its `.sql` file. Drizzle-kit generates the `.sql` but does not update the wrapper. For example, if `0001_add_column.sql` is generated, add `'0001_add_column': require('./0001_add_column.sql')` to the `m` object.

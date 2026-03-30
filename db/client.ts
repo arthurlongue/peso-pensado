@@ -2,6 +2,7 @@ import { openDatabaseSync } from 'expo-sqlite';
 import { drizzle } from 'drizzle-orm/expo-sqlite';
 import { migrate } from 'drizzle-orm/expo-sqlite/migrator';
 import * as schema from './schema';
+import migrations from './migrations/migrations';
 
 /**
  * Raw expo-sqlite connection. Needed by Drizzle's migrator.
@@ -21,7 +22,5 @@ export const db = drizzle(expoDb, { schema });
  * Safe to call multiple times — only new migrations execute.
  */
 export function initializeDatabase() {
-  // `./migrations` module will be created in step 1.12 (Metro config for .sql files).
-  // It bundles the SQL migration files into a format drizzle's migrator understands.
-  migrate(db, require('./migrations/migrations'));
+  migrate(db, migrations);
 }
