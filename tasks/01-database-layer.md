@@ -28,6 +28,15 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 - [x] 1.11 Create `db/client.ts` — connection, Drizzle instance, migration runner
 - [x] 1.12 Configure Metro to handle `.sql` migration files
 
+### 1C-fix: Platform Split & Bug Fixes
+- [x] Split `db/client.ts` → `db/client.native.ts` + `db/client.web.ts`
+- [x] Create `db/types.ts` — shared `AppDatabase` type
+- [x] Create `db/exercise-library.native.ts` + `.web.ts` — repository boundary
+- [x] Fix migration key shape (`m0000` instead of journal tag)
+- [x] Add startup gating in root layout (loading/ready/error states)
+- [x] Break seed circular import (seed now takes `db` as parameter)
+- [x] Add `moduleSuffixes` to tsconfig for platform resolution
+
 ### 1D: Seed Data (Steps 1.13–1.15)
 - [x] 1.13 Move exercise JSON into `db/seed/`
 - [x] 1.14 Create `db/seed/seed.ts` — idempotent exercise library seeder
@@ -90,14 +99,22 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 | `db/schema.ts` | CREATE | All 11 Drizzle table definitions |
 | `drizzle.config.ts` | CREATE | Drizzle Kit CLI configuration |
 | `db/migrations/*` | GENERATED | SQL migration files (auto-generated) |
+| `db/migrations/migrations.ts` | CREATE | Bundles migration SQL + journal for Drizzle migrator |
 | `lib/utils.ts` | CREATE | `generateId()` and `nowISO()` helpers |
-| `db/client.ts` | CREATE | Database connection, Drizzle instance, migration runner |
-| `metro.config.js` | MODIFY | Add `.sql` file handling for migrations |
+| `db/client.native.ts` | CREATE | Native: opens SQLite, creates Drizzle instance, runs migrations + seed |
+| `db/client.web.ts` | CREATE | Web: no-op placeholder (native DB not available on web) |
+| `db/types.ts` | CREATE | Shared `AppDatabase` type for platform-agnostic DB passing |
+| `db/exercise-library.native.ts` | CREATE | Native: queries exercise count from SQLite via Drizzle |
+| `db/exercise-library.web.ts` | CREATE | Web: returns count from bundled JSON (no DB needed) |
 | `db/seed/exercises.json` | MOVE | Exercise dataset (from project root) |
-| `db/seed/seed.ts` | CREATE | Idempotent exercise library seeder |
-| `app/_layout.tsx` | MODIFY | Call `initializeDatabase()` on mount |
-| `app/(tabs)/index.tsx` | MODIFY | Temporary verification query |
+| `db/seed/seed.ts` | CREATE | Idempotent exercise library seeder (takes `db` as parameter) |
+| `app/_layout.tsx` | MODIFY | Startup gating: waits for DB init before rendering |
+| `app/(tabs)/index.tsx` | MODIFY | Temporary verification query via repository |
+| `tsconfig.json` | MODIFY | Added `moduleSuffixes` for `.native`/`.web` resolution |
 
 ## Notes
 
-- **When generating new migrations**: After running `drizzle-kit generate`, (1) create a `.ts` wrapper file that exports the SQL as a template literal (see `0000_perfect_wendell_vaughn.ts` for the pattern), (2) add an import and entry in `db/migrations/migrations.ts`. Drizzle-kit generates `.sql` files but we use `.ts` wrappers instead of requiring `.sql` directly — Metro can't handle `.sql` imports without fragile serializer hacks.
+- **Platform resolution**: Expo/Metro resolves `.native.ts` on devices and `.web.ts` in browsers. This is configured via `moduleSuffixes` in `tsconfig.json`. Every module that touches native APIs needs this split.
+- **Repository pattern**: Screens should import from `db/exercise-library` (no suffix), not from `db/client` or Drizzle directly. The bundler picks the right platform file.
+- **When generating new migrations**: After running `drizzle-kit generate`, (1) create a `.ts` wrapper file that exports the SQL as a template literal (see `0000_perfect_wendell_vaughn.ts` for the pattern), (2) add an import and entry in `db/migrations/migrations.ts` using key `m0000`, `m0001`, etc. (Drizzle migrator uses zero-padded index, not the journal tag).
+- **Seed dependency injection**: `seedExerciseLibrary(db)` takes the Drizzle instance as a parameter instead of importing it — avoids circular imports.

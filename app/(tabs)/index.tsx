@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
-import { db } from "../../db/client";
-import { exerciseLibraryItems } from "../../db/schema";
-import { count } from "drizzle-orm";
+import { getExerciseLibraryCount } from "../../db/exercise-library";
 
 /**
  * Home tab — workout templates list.
@@ -19,9 +17,17 @@ export default function HomeScreen() {
   const [exerciseCount, setExerciseCount] = useState<number | null>(null);
 
   useEffect(() => {
-    db.select({ count: count() })
-      .from(exerciseLibraryItems)
-      .then((result) => setExerciseCount(result[0].count));
+    let isMounted = true;
+
+    getExerciseLibraryCount().then((nextCount: number) => {
+      if (isMounted) {
+        setExerciseCount(nextCount);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

@@ -1,5 +1,6 @@
 import "../global.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Text, View } from "react-native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { initializeDatabase } from "../db/client";
@@ -15,9 +16,53 @@ import { initializeDatabase } from "../db/client";
  * navigator provides native-feeling screen transitions (slide, push).
  */
 export default function RootLayout() {
+  const [databaseState, setDatabaseState] = useState<"loading" | "ready" | "error">("loading");
+
   useEffect(() => {
-    initializeDatabase();
+    let isMounted = true;
+
+    initializeDatabase()
+      .then(() => {
+        if (isMounted) {
+          setDatabaseState("ready");
+        }
+      })
+      .catch((error: unknown) => {
+        console.error("Failed to initialize database", error);
+
+        if (isMounted) {
+          setDatabaseState("error");
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
+
+  if (databaseState === "loading") {
+    return (
+      <View className="flex-1 items-center justify-center bg-white px-6">
+        <StatusBar style="auto" />
+        <Text className="text-2xl font-bold text-neutral-900">Peso Pensado</Text>
+        <Text className="mt-2 text-center text-sm text-neutral-500">
+          Carregando dados do app
+        </Text>
+      </View>
+    );
+  }
+
+  if (databaseState === "error") {
+    return (
+      <View className="flex-1 items-center justify-center bg-white px-6">
+        <StatusBar style="auto" />
+        <Text className="text-2xl font-bold text-neutral-900">Peso Pensado</Text>
+        <Text className="mt-2 text-center text-sm text-red-600">
+          Falha ao abrir os dados locais.
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <>

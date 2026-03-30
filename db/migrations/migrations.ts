@@ -10,8 +10,8 @@ import migration0 from './0000_perfect_wendell_vaughn';
  */
 const migrations = {
   journal,
-  m: {
-    '0000_perfect_wendell_vaughn': migration0,
+  migrations: {
+    m0000: migration0,
   } as Record<string, string>,
 };
 

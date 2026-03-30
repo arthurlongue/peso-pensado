@@ -17,12 +17,20 @@ const expoDb = openDatabaseSync('peso-pensado.db');
  */
 export const db = drizzle(expoDb, { schema });
 
+let initializationPromise: Promise<void> | null = null;
+
 /**
  * Opens the database, runs any pending migrations, and seeds the exercise library.
  * Call once from the root layout on app mount.
  * Safe to call multiple times — migrations and seeding are idempotent.
  */
 export async function initializeDatabase() {
-  migrate(db, migrations);
-  await seedExerciseLibrary();
+  if (!initializationPromise) {
+    initializationPromise = (async () => {
+      await migrate(db, migrations);
+      await seedExerciseLibrary(db);
+    })();
+  }
+
+  await initializationPromise;
 }
