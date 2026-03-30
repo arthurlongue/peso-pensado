@@ -30,7 +30,7 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 
 ### 1D: Seed Data (Steps 1.13–1.15)
 - [x] 1.13 Move exercise JSON into `db/seed/`
-- [ ] 1.14 Create `db/seed/seed.ts` — idempotent exercise library seeder
+- [x] 1.14 Create `db/seed/seed.ts` — idempotent exercise library seeder
 - [ ] 1.15 Wire seeding into `db/client.ts`
 
 ### 1E: App Integration (Steps 1.16–1.17)
