@@ -20,12 +20,12 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 - [x] 1.7 Add SessionNote table, export full schema object
 
 ### 1B: Migrations (Steps 1.8–1.9)
-- [ ] 1.8 Create `drizzle.config.ts` at project root
-- [ ] 1.9 Generate initial migration via `drizzle-kit generate`
+- [x] 1.8 Create `drizzle.config.ts` at project root
+- [x] 1.9 Generate initial migration via `drizzle-kit generate`
 
 ### 1C: Connection (Steps 1.10–1.12)
-- [ ] 1.10 Create `lib/utils.ts` with UUID and timestamp helpers
-- [ ] 1.11 Create `db/client.ts` — connection, Drizzle instance, migration runner
+- [x] 1.10 Create `lib/utils.ts` with UUID and timestamp helpers
+- [x] 1.11 Create `db/client.ts` — connection, Drizzle instance, migration runner
 - [ ] 1.12 Configure Metro to handle `.sql` migration files
 
 ### 1D: Seed Data (Steps 1.13–1.15)
