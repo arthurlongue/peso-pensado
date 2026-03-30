@@ -1,6 +1,8 @@
 import "../global.css";
+import { useEffect } from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { initializeDatabase } from "../db/client";
 
 /**
  * Root layout for the entire app.
@@ -13,6 +15,10 @@ import { StatusBar } from "expo-status-bar";
  * navigator provides native-feeling screen transitions (slide, push).
  */
 export default function RootLayout() {
+  useEffect(() => {
+    initializeDatabase();
+  }, []);
+
   return (
     <>
       <StatusBar style="auto" />

@@ -34,7 +34,7 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 - [x] 1.15 Wire seeding into `db/client.ts`
 
 ### 1E: App Integration (Steps 1.16–1.17)
-- [ ] 1.16 Call `initializeDatabase()` from root layout
+- [x] 1.16 Call `initializeDatabase()` from root layout
 - [ ] 1.17 Add temporary verification query to Home tab
 
 ### 1F: Verify & Commit (Steps 1.18–1.19)
