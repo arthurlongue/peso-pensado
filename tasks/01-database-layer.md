@@ -35,7 +35,7 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 
 ### 1E: App Integration (Steps 1.16–1.17)
 - [x] 1.16 Call `initializeDatabase()` from root layout
-- [ ] 1.17 Add temporary verification query to Home tab
+- [x] 1.17 Add temporary verification query to Home tab
 
 ### 1F: Verify & Commit (Steps 1.18–1.19)
 - [ ] 1.18 Run on device and verify end-to-end
