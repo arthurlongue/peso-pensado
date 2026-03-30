@@ -29,7 +29,7 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 - [x] 1.12 Configure Metro to handle `.sql` migration files
 
 ### 1D: Seed Data (Steps 1.13–1.15)
-- [ ] 1.13 Move exercise JSON into `db/seed/`
+- [x] 1.13 Move exercise JSON into `db/seed/`
 - [ ] 1.14 Create `db/seed/seed.ts` — idempotent exercise library seeder
 - [ ] 1.15 Wire seeding into `db/client.ts`
 
