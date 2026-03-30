@@ -100,4 +100,4 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 
 ## Notes
 
-- **When generating new migrations**: After running `drizzle-kit generate`, you must manually add a new entry to `db/migrations/migrations.ts` mapping the new migration tag to its `.sql` file. Drizzle-kit generates the `.sql` but does not update the wrapper. For example, if `0001_add_column.sql` is generated, add `'0001_add_column': require('./0001_add_column.sql')` to the `m` object.
+- **When generating new migrations**: After running `drizzle-kit generate`, (1) create a `.ts` wrapper file that exports the SQL as a template literal (see `0000_perfect_wendell_vaughn.ts` for the pattern), (2) add an import and entry in `db/migrations/migrations.ts`. Drizzle-kit generates `.sql` files but we use `.ts` wrappers instead of requiring `.sql` directly — Metro can't handle `.sql` imports without fragile serializer hacks.
