@@ -69,6 +69,7 @@ Core entities and their relationships:
 - **TSDoc**: All TypeScript code must use TSDoc comments on functions, types, interfaces, and exported members.
 - **Visual-first**: The user is frontend-focused and learns better with visual aids. Reference screen wireframes and diagrams when discussing features.
 - **Before implementing**: Use a specialized planner agent to break work into phases. Stop and align before writing code.
+- **Commit often**: Commit after each meaningful unit of work (a file created, a feature working, a config fixed), not at the end of an entire phase. Small commits make rollbacks safe and git history useful. A good rule of thumb: if you'd be sad to lose it, commit it.
 - **Update task files**: Mark tasks as done in `tasks/` files as work progresses.
 - **Detailed task files**: Task files in `tasks/` must be granular teaching documents, not just checklists. Each task file should include:
   - **Subtasks** broken down into small, ordered steps with clear dependencies (what must happen before what)
