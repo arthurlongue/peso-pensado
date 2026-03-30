@@ -3,6 +3,7 @@ import { drizzle } from 'drizzle-orm/expo-sqlite';
 import { migrate } from 'drizzle-orm/expo-sqlite/migrator';
 import * as schema from './schema';
 import migrations from './migrations/migrations';
+import { seedExerciseLibrary } from './seed/seed';
 
 /**
  * Raw expo-sqlite connection. Needed by Drizzle's migrator.
@@ -17,10 +18,11 @@ const expoDb = openDatabaseSync('peso-pensado.db');
 export const db = drizzle(expoDb, { schema });
 
 /**
- * Opens the database and runs any pending migrations.
+ * Opens the database, runs any pending migrations, and seeds the exercise library.
  * Call once from the root layout on app mount.
- * Safe to call multiple times — only new migrations execute.
+ * Safe to call multiple times — migrations and seeding are idempotent.
  */
-export function initializeDatabase() {
+export async function initializeDatabase() {
   migrate(db, migrations);
+  await seedExerciseLibrary();
 }
