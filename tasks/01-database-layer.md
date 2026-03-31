@@ -102,10 +102,10 @@ Define the Drizzle schema, set up migrations, seed the exercise library.
 | `db/migrations/migrations.ts` | CREATE | Bundles migration SQL + journal for Drizzle migrator |
 | `lib/utils.ts` | CREATE | `generateId()` and `nowISO()` helpers |
 | `db/client.native.ts` | CREATE | Native: opens SQLite, creates Drizzle instance, runs migrations + seed |
-| `db/client.web.ts` | CREATE | Web: no-op placeholder (native DB not available on web) |
+| `db/client.web.ts` | CREATE | Web shell: demo-mode adapter, no persistence (bundles resolve to this on browser) |
 | `db/types.ts` | CREATE | Shared `AppDatabase` type for platform-agnostic DB passing |
 | `db/exercise-library.native.ts` | CREATE | Native: queries exercise count from SQLite via Drizzle |
-| `db/exercise-library.web.ts` | CREATE | Web: returns count from bundled JSON (no DB needed) |
+| `db/exercise-library.web.ts` | CREATE | Web shell: returns count from bundled JSON (read-only demo data, no DB) |
 | `db/seed/exercises.json` | MOVE | Exercise dataset (from project root) |
 | `db/seed/seed.ts` | CREATE | Idempotent exercise library seeder (takes `db` as parameter) |
 | `app/_layout.tsx` | MODIFY | Startup gating: waits for DB init before rendering |

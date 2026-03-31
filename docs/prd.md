@@ -43,7 +43,7 @@ The product should be personally useful first, presentable early, and realistic 
 - Editing built-in exercise library items
 - Complex settings
 - Coach / multi-user roles
-- Web client
+- Web client as a full persistence target (browser shell/demo is supported, but has no local DB)
 - Multi-device sync
 - Rest timer
 - Achievements / gamification

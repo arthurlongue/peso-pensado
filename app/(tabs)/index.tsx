@@ -10,7 +10,8 @@ import { getExerciseLibraryCount } from "../../db/exercise-library";
  *
  * Currently a placeholder — will be implemented in Phase 4.
  *
- * TEMP: displays exercise library count to verify Phase 1 end-to-end.
+ * TEMP: displays exercise library count to verify Phase 1 data layer.
+ * On native this queries SQLite; on web it reads bundled demo data.
  * Remove after verification.
  */
 export default function HomeScreen() {

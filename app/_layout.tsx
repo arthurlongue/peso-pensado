@@ -9,8 +9,11 @@ import { initializeDatabase } from "../db/client";
  * Root layout for the entire app.
  *
  * This is the top-level wrapper — everything in the app renders inside
- * this Stack navigator. Database initialization and global providers
- * will be added here in later phases.
+ * this Stack navigator.
+ *
+ * On native: waits for SQLite initialization (migrations + seed) before
+ * rendering the app stack. On web: `initializeDatabase()` resolves
+ * immediately (demo mode, no persistence).
  *
  * Expo Router renders this once on app launch. The {@link Stack}
  * navigator provides native-feeling screen transitions (slide, push).

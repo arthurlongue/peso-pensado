@@ -16,3 +16,4 @@ Set up Expo Router tab navigation with empty screens — the skeleton the user t
 - [ ] Test navigation flow end-to-end
 
 ## Notes
+- Web runs in shell/demo mode — all routes should render, but no local persistence is expected.

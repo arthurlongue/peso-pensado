@@ -176,7 +176,7 @@ App Launch
 4. **One-screen session**: Active session is a single screen with inline exercise expansion.
 5. **Direct writes for sets**: Set logging uses immediate SQLite writes, not form submission.
 6. **Forms only where appropriate**: React Hook Form + Zod for setup, templates, exercises. NOT for active session.
-7. **Mobile-only**: Web explicitly deferred from MVP.
+7. **Mobile-first, web shell**: Native app is the primary target. Web renders the same routes with bundled read-only data (demo mode), but has no persistence contract and is not part of the local-first guarantee.
 8. **Read-only built-in exercises**: Built-in dataset is never user-editable.
 9. **Explicit migrations**: Drizzle generates migration SQL files, applied on app launch.
 

@@ -13,6 +13,7 @@ Edge cases, UX refinements, final touches before considering MVP complete.
 - [ ] Add loading states and error boundaries
 - [ ] Review and refine all screen transitions
 - [ ] Test full user flow end-to-end
+- [ ] Verify web shell still renders (routes + bundled demo data, no persistence)
 - [ ] Review TSDoc coverage across all files
 - [ ] Final review against PRD success criteria
 

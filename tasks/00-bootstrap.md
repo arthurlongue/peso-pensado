@@ -71,6 +71,7 @@ Set up the Expo project, install dependencies, create folder structure, verify t
 - [x] Open on web via `w` key (installed `react-dom` + `react-native-web`)
 - [x] Confirm: 3-tab bottom navigation visible, tab switching works
 - **Result**: App runs on both web and device. Metro bundler starts, QR code scans correctly with Expo Go.
+- **Note**: Web runs in shell/demo mode — routes render with bundled read-only data, no local persistence.
 
 ## Notes
 - Phase 0 is intentionally minimal — no database, no real data, just scaffolding.
